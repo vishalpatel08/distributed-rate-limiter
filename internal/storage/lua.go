@@ -20,8 +20,8 @@ end
 
 local elapsed = current_time - last_refill
 local refill = math.floor(elapsed * refill_rate)
-
 tokens = math.min(capacity, tokens + refill)
+last_refill = current_time
 
 local allowed = 0
 
@@ -29,12 +29,6 @@ if tokens >= 1 then
 	allowed = 1
 	tokens = tokens - 1
 end
-
-if refill > 0 then
-    tokens = math.min(capacity, tokens + refill)
-    last_refill = current_time
-end
-
 
 redis.call("SET", tokens_key, tokens)
 redis.call("SET", timestamp_key, last_refill)

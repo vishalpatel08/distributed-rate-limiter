@@ -13,7 +13,7 @@ func (m *MockRepository) ConsumeToken(clientID string) (bool, int, error) {
 	return true, 99, nil
 }
 
-func TestAllow(t *testing.T) {
+func TestAllowSuccess(t *testing.T) {
 
 	mockRepo := &MockRepository{}
 

@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -33,8 +34,11 @@ func (r Repository) ConsumeToken(clientID string) (bool, int, error) {
 		time.Now().Unix(),
 	}
 
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
 	result, err := r.client.Eval(
-		Ctx,
+		ctx,
 		TokenBucketLua,
 		keys,
 		args...,
