@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ratelimiter;
+
+option go_package = "github.com/vishalpatel08/distributed-rate-limiter/internal/server/pb";
+
+service RateLimiter {
+    rpc Allow(AllowRequest) returns (AllowResponse);
+}
+
+message AllowRequest {
+    string client_id = 1;
+}
+
+message AllowResponse {
+    bool allowed = 1;
+    int32 remaining_tokens = 2;
+}
